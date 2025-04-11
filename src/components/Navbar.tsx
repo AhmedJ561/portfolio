@@ -1,9 +1,8 @@
-// Navbar.tsx
 import React from "react";
 
 const Navbar: React.FC = () => {
   const playClickSound = () => {
-    const audio = new Audio("/click.mp3"); // Adjust the path as necessary
+    const audio = new Audio(`${import.meta.env.BASE_URL}click.mp3`); // Adjust the path as necessary
     audio.play();
   };
 
@@ -12,7 +11,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <div className="text-2xl font-bold text-accent">Portfolio</div>
         <div className="space-x-6 text-lg font-medium">
-          {["home", "about", "services", "project", "contact"].map(
+          {["home", "about", "skills", "services", "project", "contact"].map(
             (section) => (
               <a
                 key={section}

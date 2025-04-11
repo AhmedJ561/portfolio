@@ -6,6 +6,7 @@ import About from "./components/About";
 import Services from "./components/Services";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
+import SkillsVisualization from "./components/SkillVisualization";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -13,15 +14,18 @@ const App: React.FC = () => {
 
     const checkSlide = () => {
       sections.forEach((section) => {
-        const slideInAt = window.scrollY + window.innerHeight - section.offsetHeight / 2;
-        const sectionBottom = window.scrollY + section.offsetHeight;
-        const isHalfShown = slideInAt > section.offsetTop;
-        const isNotScrolledPast = window.scrollY < sectionBottom;
+        const triggerPoint = window.scrollY + window.innerHeight * 0.85;
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
 
-        if (isHalfShown && isNotScrolledPast) {
+        const isVisible =
+          triggerPoint > sectionTop && window.scrollY < sectionBottom;
+
+        // Add "active" and "slide-in-from-right" when visible, but don't remove them after
+        if (isVisible) {
           section.classList.add("active", "slide-in-from-right");
-        } else {
-          section.classList.remove("active", "slide-in-from-right");
+        } else if (!section.classList.contains("active")) {
+          section.classList.remove("slide-in-from-right");
         }
       });
     };
@@ -37,39 +41,34 @@ const App: React.FC = () => {
   return (
     <>
       <Navbar />
-      <main className="top-0 w-full min-h-screen pt-16 scroll-smooth">
-        <section
-          id="home"
-          className="w-full min-h-screen p-8 section-scroll-animation"
-        >
+      <main className="top-0 w-full pt-16 scroll-smooth">
+        {/* Home Section */}
+        <section id="home" className="w-full p-8 section-scroll-animation">
           <Home />
         </section>
 
-        <section
-          id="about"
-          className="min-h-screen p-8 section-scroll-animation"
-        >
+        {/* About Section */}
+        <section id="about" className="p-8 section-scroll-animation">
           <About />
         </section>
 
-        <section
-          id="services"
-          className="min-h-screen p-8 section-scroll-animation"
-        >
+        {/* Skills Section */}
+        <section id="skills" className="p-8 section-scroll-animation">
+          <SkillsVisualization />
+        </section>
+
+        {/* Services Section */}
+        <section id="services" className="p-8 ">
           <Services />
         </section>
 
-        <section
-          id="project"
-          className="min-h-screen p-8 section-scroll-animation"
-        >
+        {/* Projects Section */}
+        <section id="project" className="p-8 section-scroll-animation">
           <Projects />
         </section>
 
-        <section
-          id="contact"
-          className="min-h-screen p-8 section-scroll-animation"
-        >
+        {/* Contact Section */}
+        <section id="contact" className="p-8 section-scroll-animation">
           <Contact />
         </section>
       </main>
